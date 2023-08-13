@@ -1,0 +1,105 @@
+
+Give every PC, router IP in note to help yourself
+
+PC config:
+
+check if they arre connected : ipconfig  (hover over pc)
+
+
+send message: ping recerver's_IP ( graphically can be done as well)
+
+see in simulation mode: Only the selected protocol instead of show all
+
+
+--------------------------------------------------------------------------------------------
+
+
+ROUTER CONFIG:
+ 
+1. administratice mode: enable -> en
+2. config mode: configure terminal -> conf t
+3. port/interface config mode: interface fa0/0  -> int
+4. assign IP: ip address 192.168.1.101 /* (>100 for a network)*/ 255.255.255.0
+5. no shutdown
+6. exit, exit
+
+---------------------------------------------------------------------------
+
+Router is used to connect different networks. But, you have to configure first ( 2 types -> static / manually, dynamically)
+
+------------------------------------------------
+
+Static Routing
+
+
+if the networks are connected to the same router, no need to config in router. Only config in PC.
+ 
+PC config for diffferent network connect:
+
+Default Gateway: Router IP (192.168.3.101 for 192.168.3.1 PC)
+
+Default Gateway: 192.168.2.101 for 192.168.2.3
+
+---
+
+If netwokrs are connected to diff router: 
+
+Router config:
+
+let's router is 198.168..   // connected with 198.168.1 and 198.168.4 directly but not with 198.168.2 and 198.168.3 directly
+ 
+ip route 198.168.3.0 255.255.255.0 fa1/0(exit interface)
+
+to see these config:
+
+show ip route
+
+to only see static:
+
+show ip route static
+
+---------------------------
+
+
+Router Router Connection: 
+
+a new network -> set network IP ( 102.168.4.101  & 102.168.4.102)
+en
+conf t en
+int fa1/0
+ip address 102.168.4.101 255.255.255.0
+no shutdown
+
+( You can also use UI)
+
+
+-------------------------------------------
+
+Dynamic Routing
+
+
+
+en
+conf t
+router rip
+network (connected_ip)
+
+
+Graphically: config -> rip -> add all the networks
+
+
+
+--------------
+
+set passoword in router
+
+en
+conf t
+enable secret password
+
+
+
+
+---
+
+See more in pdfs
