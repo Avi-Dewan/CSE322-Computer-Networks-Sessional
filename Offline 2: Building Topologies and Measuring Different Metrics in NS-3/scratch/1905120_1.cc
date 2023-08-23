@@ -262,9 +262,9 @@ int main (int argc, char *argv[])
   PacketSinkHelper packetSinkHelper ("ns3::TcpSocketFactory", sinkLocalAddress);
 
   ApplicationContainer sinkApps;
-  for (uint32_t i = 0; i < nsNodes; ++i){
-    // create sink app on S side node
-    sinkApps.Add (packetSinkHelper.Install (wifiStaNodes_S.Get(i)));
+  for (uint32_t i = 0; i < nrNodes; ++i){
+    // create sink app on R side node
+    sinkApps.Add (packetSinkHelper.Install (wifiStaNodes_R.Get(i)));
   }
   sinkApps.Start (Seconds (1.0));
   sinkApps.Stop (Seconds (6.5));
@@ -280,15 +280,15 @@ int main (int argc, char *argv[])
   
   ApplicationContainer clientApps;
   int cur_flow_count = 0;
-  for (uint32_t i = 0; i < nsNodes; ++i)
+  for (uint32_t i = 0; i < nrNodes; ++i)
     {
-      // Create an on/off app on R side node which sends packets to the S side
-      AddressValue remoteAddress (InetSocketAddress (sNodesInterfaces.GetAddress(i), 9));
+      // Create an on/off app on S side node which sends packets to the R side
+      AddressValue remoteAddress (InetSocketAddress (rNodesInterfaces.GetAddress(i), 9));
       
-      for(uint32_t j = 0; j < nrNodes; ++j)
+      for(uint32_t j = 0; j < nsNodes; ++j)
       {
         clientHelper.SetAttribute ("Remote", remoteAddress);
-        clientApps.Add (clientHelper.Install (wifiStaNodes_R.Get(j)));
+        clientApps.Add (clientHelper.Install (wifiStaNodes_S.Get(j)));
 
         cur_flow_count++;
         if(cur_flow_count >= nFlows)
